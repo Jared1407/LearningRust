@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <title>GCS Dashboard (Live)</title>
+        <style>
+            body { background-color: #1e1e1e; color: #00ff00; font-family: monospace; text-align: center; padding-top: 50px; }
+            .data-box { border: 1px solid #00ff00; padding: 20px; display: inline-block; font-size: 24px; text-align: left;}
+            span { color: #fff; }
+            #status { color: #ffaa00; font-size: 18px; margin-bottom: 15px; font-weight: bold; }
+        </style>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js'></script>
+    </head>
+    <body>
+        <h1>DRONE TELEMETRY LINK</h1>
+        <div id='status'>CONNECTING TO WEBSOCKET...</div>
+        
+        <div class='data-box'>
+            <p>Roll: <span id='r'>0.00</span>&deg;</p>
+            <p>Pitch: <span id='p'>0.00</span>&deg;</p>
+            <p>Yaw: <span id='y'>0.00</span>&deg;</p>
+            <p>Altitude: <span id='a'>0.00</span> m</p>
+            <p>Battery: <span id='b'>0.00</span> V</p>
+        </div>
+
+        <script>
+            const statusEl = document.getElementById('status');
+            let watchdogTimer;
+
+            const connection = new signalR.HubConnectionBuilder()
+                .withUrl('/telemetryHub')
+                .build();
+
+            // The Watchdog Logic
+            function resetWatchdog() {
+                clearTimeout(watchdogTimer);
+                statusEl.innerText = 'LINK ESTABLISHED - LIVE TELEMETRY';
+                statusEl.style.color = '#00ff00'; // Green
+
+                // If 1000ms passes without a packet, trigger the alarm
+                watchdogTimer = setTimeout(() => {
+                    statusEl.innerText = 'CONNECTION LOST (NO DRONE TELEMETRY)';
+                    statusEl.style.color = '#ff0000'; // Red
+                }, 1000);
+            }
+
+            connection.on('ReceiveTelemetry', (data) => {
+                resetWatchdog(); // We got data, reset the timer!
+                
+                document.getElementById('r').innerText = data.roll.toFixed(2);
+                document.getElementById('p').innerText = data.pitch.toFixed(2);
+                document.getElementById('y').innerText = data.yaw.toFixed(2);
+                document.getElementById('a').innerText = data.altitude.toFixed(2);
+                document.getElementById('b').innerText = data.battery.toFixed(2);
+            });
+
+            // If the C# server itself crashes
+            connection.onclose(() => {
+                clearTimeout(watchdogTimer);
+                statusEl.innerText = 'CRITICAL ERROR (SERVER OFFLINE)';
+                statusEl.style.color = '#ff0000';
+            });
+
+            connection.start()
+                .then(() => {
+                    statusEl.innerText = 'WEBSOCKET CONNECTED - WAITING FOR DRONE...';
+                    statusEl.style.color = '#ffaa00'; // Yellow
+                })
+                .catch(err => {
+                    statusEl.innerText = 'WEBSOCKET CONNECTION FAILED';
+                    statusEl.style.color = '#ff0000';
+                });
+        </script>
+    </body>
+    </html>

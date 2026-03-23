@@ -1,0 +1,16 @@
+# Rust Gitignore:
+drone_sim/target/
+drone_sim/Cargo.lock
+
+
+
+# C# Gitignore:
+GroundSationWeb/bin/
+GroundSationWeb/obj/
+GroundSationWeb/Properties/launchSettings.json
+GroundSationWeb/.vs/
+GroundSationWeb/appsettings.Development.json
+GroundSationWeb/appsettings.Production.json
+GroundSationWeb/appsettings.Staging.json
+GroundSationWeb/appsettings.json
+

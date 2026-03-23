@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "GroundStationWeb/1.0.0": {
+        "runtime": {
+          "GroundStationWeb.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "GroundStationWeb/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

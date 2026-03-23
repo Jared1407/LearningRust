@@ -5,12 +5,14 @@ drone_sim/Cargo.lock
 
 
 # C# Gitignore:
-GroundSationWeb/bin/
-GroundSationWeb/obj/
-GroundSationWeb/Properties/launchSettings.json
-GroundSationWeb/.vs/
-GroundSationWeb/appsettings.Development.json
-GroundSationWeb/appsettings.Production.json
-GroundSationWeb/appsettings.Staging.json
-GroundSationWeb/appsettings.json
+GroundStationWeb/bin
+GroundStationWeb/obj
+GroundStationWeb/Properties/launchSettings.json
+GroundStationWeb/.vs/
+GroundStationWeb/appsettings.Development.json
+GroundStationWeb/appsettings.Production.json
+GroundStationWeb/appsettings.Staging.json
+GroundStationWeb/appsettings.json
+/bin
+/obj
 

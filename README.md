@@ -29,3 +29,15 @@ Navigate to the C# project directory and start the web server:
 ```bash
 cd GroundStationWeb
 dotnet run
+```
+
+### 2. Start the Drone Flight Controller (Rust) ###
+Open a second terminal, navigate to the Rust project directory, and start the telemetry broadcast:
+```bash
+cd drone_sim
+cargo run
+```
+### 3. View the Dashboard ###
+Open your web browser and navigate to ```http://localhost:5000```. You will see the WebSocket connection establish and live telemetry data begin streaming immediately.
+
+If you terminate the Rust application (```Ctrl+C```), the frontend watchdog timer will trigger within 1000ms and display a critical connection loss warning.

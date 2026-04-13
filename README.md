@@ -4,7 +4,7 @@ A full-stack, cross-language simulation demonstrating real-time hardware telemet
 
 This project simulates a high-frequency UDP data stream (representing physical sensors) being packed in Rust, transmitted over a network, and consumed asynchronously by a C# .NET Core backend, which then pushes live updates to a JavaScript frontend via WebSockets.
 
-## 🏗️ System Architecture
+## System Architecture
 
 This project is split into two distinct environments to mimic a real-world aerospace pipeline:
 
@@ -20,7 +20,7 @@ This project is split into two distinct environments to mimic a real-world aeros
    - The frontend implements a **Watchdog Timer** failsafe, which visually alerts the user if the hardware connection is interrupted or goes silent.
    - *Language/Tools:* C# 11, .NET Core Minimal APIs, SignalR, HTML/CSS/JS
 
-## 🚀 How to Run the Simulation
+## How to Run the Simulation
 
 To run this project locally, you will need two separate terminal windows.
 
